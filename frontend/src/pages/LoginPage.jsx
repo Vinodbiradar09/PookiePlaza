@@ -25,7 +25,7 @@ const LoginPage = () => {
                 console.log("Login failed:", error);
                 // Error is already handled in the hook, but you can add additional logic here
             }
-        });
+        }); 
     }
 
     return (

@@ -71,7 +71,7 @@ const acceptFriendRequest = async (friendRequestId)=>{
 
 const getStreamTokens = async ()=>{
   const response = await axiosInstances.get("/api/v1/chat/token");
-  return response.data;
+  return response.data.data;
 }
 
 

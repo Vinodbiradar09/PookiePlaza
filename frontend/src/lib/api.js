@@ -21,7 +21,7 @@ const currentUser = async ()=>{
   try {
     const response = await axiosInstances.get("/api/v1/auth/user");
 
-    return response.data;
+    return response.data.data;
   } catch (error) {
       console.log("error in getting the current user" , error.message);
       return null;
@@ -37,13 +37,13 @@ const completeOnBoarding = async (userData)=>{
 const getUsersFriends = async ()=>{
   const response = await axiosInstances.get("/api/v1/user/getMyFrnds");
 
-  return response.data;
+  return response.data.data.friends;
 }
 
 const getRecommendedUsers = async ()=>{
   const response = await axiosInstances.get("/api/v1/user/recomendation");
 
-  return response.data;
+  return response.data.data;
 }
 
 const getOutGoingFriendReq = async ()=>{
@@ -65,9 +65,15 @@ const getFriendRequest = async ()=>{
 }
 
 const acceptFriendRequest = async (friendRequestId)=>{
-  const response = await axiosInstances.put(`/api/v1/user/acceptReq/${friendRequestId}`)
+  const response = await axiosInstances.put(`/api/v1/user/acceptReq/${friendRequestId}`);
+  return response.data;
+}
+
+const getStreamTokens = async ()=>{
+  const response = await axiosInstances.get("/api/v1/chat/token");
+  return response.data;
 }
 
 
 
-export { signUp,login ,logout , currentUser , completeOnBoarding , getUsersFriends , getRecommendedUsers , getFriendRequest , getOutGoingFriendReq , sendFriendRequest , acceptFriendRequest};
+export { signUp,login ,logout , currentUser , completeOnBoarding , getUsersFriends , getRecommendedUsers , getFriendRequest , getOutGoingFriendReq , sendFriendRequest , acceptFriendRequest , getStreamTokens};

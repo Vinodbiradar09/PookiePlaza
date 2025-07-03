@@ -212,7 +212,7 @@ const getCurrentUser = asyncHandler(async(req , res)=>{
         throw new ApiError(403 , "unauthorized user");
     }
 
-    return res.status(200).json(new ApiResponse(200 , user , "current loggedInUser"));
+    return res.status(200).json(new ApiResponse(200 , {user} , "current loggedInUser"));
 })
 
 

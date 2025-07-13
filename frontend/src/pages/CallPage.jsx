@@ -5,7 +5,7 @@ import { getStreamTokens } from '../lib/api';
 import useAuth from '../hooks/useAuth';
 
 import { StreamVideo, StreamVideoClient, StreamCall, CallControls, SpeakerLayout, StreamTheme, useCallStateHooks, CallingState } from "@stream-io/video-react-sdk";
-import "@stream-io/video-react-sdk/dist/css/style.css";
+import "@stream-io/video-react-sdk/dist/css/styles.css";
 import toast from 'react-hot-toast';
 import PageLoader from '../components/PageLoader';
 

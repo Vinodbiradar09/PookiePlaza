@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { BellIcon, ClockIcon, MessageSquareIcon, UserCheckIcon } from "lucide-react";
 import NoNotificationFound from "../components/NoNotificationFound";
@@ -26,6 +26,13 @@ const NotificationPage = () => {
     const incomingRequests = friendRequests?.incomingreqs;
     const acceptedRequests = friendRequests?.acceptedreqs;
 
+    useEffect(() => {
+       console.log("in" , incomingRequests);
+       console.log("req" , friendRequests);
+    }, [])
+
+    console.log("i" , incomingRequests);
+    
 
     return (
         <div className="p-4 sm:p-6 lg:p-8">

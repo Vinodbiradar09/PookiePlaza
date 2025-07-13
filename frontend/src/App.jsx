@@ -14,6 +14,7 @@ import useThemeStore from "./store/useThemeStore.js";
 import NotificationPage from "./pages/NotificationPage.jsx";
 import PageLoader from "./components/PageLoader.jsx";
 import ChatPage from './pages/ChatPage.jsx'
+import CallPage from './pages/CallPage.jsx'
 
 
 
@@ -24,9 +25,10 @@ function App() {
 
   const isAuthenticated = Boolean(authUser);
   const isOnboarded = authUser?.isOnboarded;
-useEffect(() => {
-  console.log("auth" , isAuthenticated);
-}, [])
+
+  console.log("a" , isAuthenticated);
+  console.log("onbo" , isOnboarded);
+
 
   if(isLoading) return <PageLoader />
 
@@ -72,6 +74,16 @@ useEffect(() => {
               <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
           )
         }
+        />
+         <Route
+          path="/call/:id"
+          element={
+            isAuthenticated && isOnboarded ? (
+              <CallPage />
+            ) : (
+              <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
+            )
+          }
         />
         <Route
         path='/chat/:id'

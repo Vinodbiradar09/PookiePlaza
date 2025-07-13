@@ -52,16 +52,18 @@ const getOutGoingFriendReq = async ()=>{
   return response.data;
 }
 
-const sendFriendRequest = async (userId)=>{
-  const response = await axiosInstances.post(`/api/v1/user/sendReq/${userId}`);
+const sendFriendRequest = async (receiverId)=>{
 
-  return response.data;
+  console.log("T" , receiverId);
+  const response = await axiosInstances.post(`/api/v1/user/sendReq/${receiverId}`);
+
+  return response.data.data;
 }
 
 const getFriendRequest = async ()=>{
   const response = await axiosInstances.get("/api/v1/user/friendreq");
 
-  return response.data;
+  return response.data.data;
 }
 
 const acceptFriendRequest = async (friendRequestId)=>{

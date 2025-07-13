@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import useLogin from '../hooks/useLogin'
-import {ShipWheelIcon} from "lucide-react"
+import {HandHeart} from "lucide-react"
 import {Link} from "react-router"
 
 const LoginPage = () => {
@@ -38,9 +38,9 @@ const LoginPage = () => {
                 <div className="w-full lg:w-1/2 p-4 sm:p-8 flex flex-col">
                 
                     <div className="mb-4 flex items-center justify-start gap-2">
-                        <ShipWheelIcon className="size-9 text-primary" />
+                        <HandHeart className="size-9 text-primary" />
                         <span className="text-3xl font-bold font-mono bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary  tracking-wider">
-                            Streamify
+                            PookiePlaza
                         </span>
                     </div>
 
@@ -55,9 +55,9 @@ const LoginPage = () => {
                         <form onSubmit={handleLogin}>
                             <div className="space-y-4">
                                 <div>
-                                    <h2 className="text-xl font-semibold">Welcome Back</h2>
+                                    <h2 className="text-xl font-semibold">Welcome Back Pookies</h2>
                                     <p className="text-sm opacity-70">
-                                        Sign in to your account to continue your language journey
+                                        Sign in to your account to continue your pookie journey
                                     </p>
                                 </div>
 
@@ -120,13 +120,13 @@ const LoginPage = () => {
                     <div className="max-w-md p-8">
                       
                         <div className="relative aspect-square max-w-sm mx-auto">
-                            <img src="/i.png" alt="Language connection illustration" className="w-full h-full" />
+                            <img src="/love.jpeg" alt="Language connection illustration" className="w-full h-full" />
                         </div>
 
                         <div className="text-center space-y-3 mt-6">
-                            <h2 className="text-xl font-semibold">Connect with language partners worldwide</h2>
+                            <h2 className="text-xl font-semibold">Find your forever pookie.</h2>
                             <p className="opacity-70">
-                                Practice conversations, make friends, and improve your language skills together
+                              Laugh, love, and grow together — one sweet message at a time. ✨💌🌍
                             </p>
                         </div>
                     </div>

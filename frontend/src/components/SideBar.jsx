@@ -1,6 +1,6 @@
 import useAuth from "../hooks/useAuth";
 import {Link , useLocation} from "react-router";
-import {BellIcon , HomeIcon , ShipWheelIcon , UserIcon} from "lucide-react";
+import {BellIcon , HomeIcon , HandHeart , UserIcon} from "lucide-react";
 
 const SideBar = () => {
     const {authUser} = useAuth();
@@ -12,9 +12,9 @@ const SideBar = () => {
 
     <div className="p-5 border-b border-base-300">
         <Link to="/" className="flex items-center gap-2.5">
-         <ShipWheelIcon className="size-9 text-primary" />
+         <HandHeart className="size-9 text-primary" />
           <span className="text-3xl font-bold font-mono bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary  tracking-wider">
-            Streamify
+            PookiePlaza 🌸
           </span>
         </Link>
     </div>
@@ -59,7 +59,7 @@ const SideBar = () => {
             <div className="flex-1">
                 <p className="font-semibold text-sm">{authUser?.fullName}</p>
                 <p className="text-xs text-success flex items-center gap-1">
-                    <span className="size-2 rounded-full bg-success inline-block" >
+                    <span className="size-2 rounded-full bg-successs inline-block" >
                         online
                     </span>
                 </p>

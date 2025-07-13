@@ -8,6 +8,11 @@ const ThemeSelector = () => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
 
+    // Debug: Log current theme
+    useEffect(() => {
+        console.log("Current theme in ThemeSelector:", theme);
+    }, [theme]);
+
     // Close dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -26,54 +31,56 @@ const ThemeSelector = () => {
     }, [isOpen]);
 
     const handleThemeChange = (themeName) => {
+        console.log("Changing theme to:", themeName);
         setTheme(themeName);
-        setIsOpen(false); // Close dropdown after selection
+        setIsOpen(false);
+        
+        // Debug: Check if theme was applied after a short delay
+        setTimeout(() => {
+            console.log("Theme after change:", themeName);
+        }, 100);
     };
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
 
+    // Debug: Log available themes
+    console.log("Available themes:", THEMES);
+
     return (
         <div className="relative" ref={dropdownRef}>
-            <button 
+            <button
                 onClick={toggleDropdown}
-                className="btn btn-ghost btn-circle"
-                type="button"
+                className="p-2 rounded-full hover:bg-base-200 transition-colors"
+                title="Select Theme"
             >
-                <PaletteIcon className="size-5" />
+                <PaletteIcon size={20} />
             </button>
 
             {isOpen && (
-                <div className="absolute right-0 mt-2 p-1 shadow-2xl bg-base-200 backdrop-blur-lg rounded-2xl
-                w-56 border border-base-content/10 max-h-80 overflow-y-auto z-[9999]">
-                    <div className="space-y-1">
+                <div className="absolute right-0 mt-2 w-64 bg-base-100 border border-base-300 rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto">
+                    <div className="p-2">
                         {THEMES.map((themeOption) => (
-                            <button
+                            <div
                                 key={themeOption.name}
-                                className={`
-                                    w-full px-4 py-3 rounded-xl flex items-center gap-3 transition-colors
-                                    ${
-                                        theme === themeOption.name
-                                            ? "bg-primary/10 text-primary"
-                                            : "hover:bg-base-content/5"
-                                    }
-                                `}
+                                className={`flex items-center justify-between p-2 rounded cursor-pointer hover:bg-base-200 ${
+                                    theme === themeOption.name ? 'bg-base-200' : ''
+                                }`}
                                 onClick={() => handleThemeChange(themeOption.name)}
                             >
-                                <PaletteIcon className="size-4" />
-                                <span className="text-sm font-medium">{themeOption.label}</span>
+                                <span className="font-medium">{themeOption.label}</span>
                                 {/* THEME PREVIEW COLORS */}
-                                <div className="ml-auto flex gap-1">
+                                <div className="flex gap-1">
                                     {themeOption.colors.map((color, i) => (
-                                        <span
+                                        <div
                                             key={i}
-                                            className="size-2 rounded-full"
+                                            className="w-3 h-3 rounded-full"
                                             style={{ backgroundColor: color }}
                                         />
                                     ))}
                                 </div>
-                            </button>
+                            </div>
                         ))}
                     </div>
                 </div>

@@ -37,7 +37,7 @@ const completeOnBoarding = async (userData)=>{
 const getUsersFriends = async ()=>{
   const response = await axiosInstances.get("/api/v1/user/getMyFrnds");
 
-  return response.data.data.friends;
+  return response.data.data;
 }
 
 const getRecommendedUsers = async ()=>{
@@ -49,7 +49,7 @@ const getRecommendedUsers = async ()=>{
 const getOutGoingFriendReq = async ()=>{
   const response = await axiosInstances.get("/api/v1/user/outgoingreqs");
 
-  return response.data;
+  return response.data.data;
 }
 
 const sendFriendRequest = async (receiverId)=>{

@@ -134,7 +134,7 @@ const getMyFriends = asyncHandler(async (req, res) => {
     // now do the populate for the friends field and send res
 
 
-    const userId = req.user._id;
+    const userId = await req.user._id;
     const { page = 1, limit = 10, search = "" } = req.query;
 
     if (!userId || !isValidObjectId(userId)) {
@@ -149,18 +149,18 @@ const getMyFriends = asyncHandler(async (req, res) => {
     if (!user) {
         throw new ApiError(404, "User not found");
     }
-    const filter = { _id: { $in: user.friends } };
+    const filter =  { _id: { $in: user.friends } };
     if (search) {
         filter.fullName = { $regex: search, $options: "i" };
     }
 
     const [friends, totalFriends] = await Promise.all([
-        User.find(filter)
+     await User.find(filter)
             .select("fullName email profilePic nativeLanguage learningLanguage bio location")
             .skip(skipInt)
             .limit(limitInt),
 
-        User.countDocuments(filter)
+       await User.countDocuments(filter)
     ]);
 
     res.status(200).json(new ApiResponse(200, {

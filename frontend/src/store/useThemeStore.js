@@ -1,38 +1,40 @@
-import {create} from "zustand";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-// Helper function to safely get theme from localStorage
-const getStoredTheme = () => {
-    try {
-        if (typeof window !== 'undefined') {
-            return localStorage.getItem("streamify-theme") || "coffee";
+const useThemeStore = create(
+    persist(
+        (set, get) => ({
+            theme: "light", // Default theme
+            isInitialized: false,
+            
+            initializeTheme: () => {
+                const currentTheme = get().theme;
+                console.log("Initializing theme with:", currentTheme);
+                
+                // Apply theme to HTML element immediately
+                document.documentElement.setAttribute('data-theme', currentTheme);
+                
+                set({ isInitialized: true });
+            },
+            
+            setTheme: (newTheme) => {
+                console.log("Setting theme to:", newTheme);
+                
+                // Apply theme to HTML element immediately
+                document.documentElement.setAttribute('data-theme', newTheme);
+                
+                // Also apply to body for extra compatibility
+                document.body.setAttribute('data-theme', newTheme);
+                
+                set({ theme: newTheme });
+                console.log("Theme set successfully:", newTheme);
+            },
+        }),
+        {
+            name: "streamify-theme", // localStorage key
+            partialize: (state) => ({ theme: state.theme }), // Only persist the theme
         }
-        return "coffee";
-    } catch (error) {
-        console.error("Error accessing localStorage:", error);
-        return "coffee";
-    }
-};
-
-const useThemeStore = create((set, get) => ({
-    theme: "coffee", // Default theme
-    isInitialized: false,
-    
-    // Initialize theme from localStorage
-    initializeTheme: () => {
-        const storedTheme = getStoredTheme();
-        set({ theme: storedTheme, isInitialized: true });
-    },
-    
-    setTheme: (theme) => {
-        try {
-            localStorage.setItem("streamify-theme", theme);
-            set({ theme });
-        } catch (error) {
-            console.error("Error saving theme to localStorage:", error);
-            // Still update the theme even if localStorage fails
-            set({ theme });
-        }
-    },
-}));
+    )
+);
 
 export default useThemeStore;

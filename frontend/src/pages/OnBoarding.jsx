@@ -117,7 +117,7 @@ const OnBoarding = () => {
                             {/* native */}
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text">Native Language</span>
+                                    <span className="label-text">Native </span>
                                 </label>
                                 <select
                                     name="nativeLanguage"
@@ -140,7 +140,7 @@ const OnBoarding = () => {
 
                             <div className='form-control'>
                                 <label className='label'>
-                                    <span className="label-text">Learning Language</span>
+                                    <span className="label-text"> Looking For</span>
                                 </label>
 
                                 <select name="learningLanguage"
@@ -149,7 +149,7 @@ const OnBoarding = () => {
                                     className="select select-bordered w-full"
                                 >
                                     <option value="">
-                                        Select language you're learning
+                                        Select language you're willing to connect
                                     </option>
 
                                     {LANGUAGES.map((lang) => (

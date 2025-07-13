@@ -68,7 +68,7 @@ const NotificationPage = () => {
                                                                     Native:{request.sender.nativeLanguage}
                                                                 </span>
                                                                 <span>
-                                                                    Learning : {request.sender.learningLanguage}
+                                                                    Looking For : {request.sender.learningLanguage}
                                                                 </span>
                                                             </div>
                                                         </div>

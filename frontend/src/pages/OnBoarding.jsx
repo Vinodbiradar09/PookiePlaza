@@ -149,7 +149,7 @@ const OnBoarding = () => {
                                     className="select select-bordered w-full"
                                 >
                                     <option value="">
-                                        Select language you're willing to connect
+                                        Select language you're Looking for 
                                     </option>
 
                                     {LANGUAGES.map((lang) => (

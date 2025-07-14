@@ -17,7 +17,7 @@ const OnBoarding = () => {
     const [formState, setFormState] = useState({
         fullName: authUser?.fullName || "",
         bio: authUser?.bio || "",
-        // profilePic : authUser.profilePic || "",
+        profilePic : authUser.profilePic || "",
         nativeLanguage: authUser?.nativeLanguage || "",
         learningLanguage: authUser?.learningLanguage || "",
         location: authUser?.location || "",
@@ -54,7 +54,9 @@ const OnBoarding = () => {
         toast.success("Random avatar generated");
     }
 
-
+//   const photo = ()=>{
+//     const 
+//   }
 
     return (
         <div className="min-h-screen bg-base-100 flex items-center justify-center p-4">
@@ -101,14 +103,14 @@ const OnBoarding = () => {
                         {/* bio */}
                         <div className='form-control'>
                             <label className='label'>
-                                <span className='label-text'>Bio</span>
+                                <span className='label-text p-2'>Bio</span>
                             </label>
                             <textarea
                                 name="bio"
                                 value={formState.bio}
                                 onChange={(e) => setFormState({ ...formState, bio: e.target.value })}
                                 className="textarea textarea-bordered h-24"
-                                placeholder="Tell others about yourself and your language learning goals"
+                                placeholder="Tell others about yourself"
                             />
                         </div>
                         {/* lang */}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { HandHeart } from "lucide-react";
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import useSignUP from '../hooks/useSignUP';
 
 const SignUpPage = () => {
@@ -11,6 +11,8 @@ const SignUpPage = () => {
         password: "",
         profilePic: null
     });
+
+    const navigate = useNavigate();
 
    
     const [fileError , setFileError] = useState("");
@@ -58,7 +60,8 @@ const SignUpPage = () => {
        
         signupMutation(formData, {
             onSuccess: (data) => {
-                console.log("registered", data.user);
+                navigate("/login");
+                // console.log("registered", data.user);
             },
             onError: (error) => {
                 console.log("registered failed", error);

@@ -8,10 +8,9 @@ import { acceptFriendRequest, getFriendRequest } from "../lib/api";
 const NotificationPage = () => {
     const queryClient = useQueryClient();
 
-    const { data: friendRequests, isLoading } = useQuery({
+    const { data: friendRequests = {}, isLoading, error } = useQuery({
         queryKey: ["friendRequests"],
         queryFn: getFriendRequest,
-
     })
 
     const { mutate: acceptRequestMutation, isPending, data } = useMutation({
@@ -23,16 +22,28 @@ const NotificationPage = () => {
         }
     });
 
-    const incomingRequests = friendRequests?.incomingreqs;
-    const acceptedRequests = friendRequests?.acceptedreqs;
+    const incomingRequests = friendRequests?.incomingreqs || [];
+    const acceptedRequests = friendRequests?.acceptedreqs || [];
 
     useEffect(() => {
-       console.log("in" , incomingRequests);
-       console.log("req" , friendRequests);
-    }, [])
+       console.log("Full friendRequests object:", friendRequests);
+       console.log("incomingRequests:", incomingRequests);
+       console.log("isLoading:", isLoading);
+       console.log("error:", error);
+       
+       // Debug each request
+       incomingRequests.forEach((request, index) => {
+           console.log(`Request ${index}:`, request);
+           console.log(`Request ${index} sender:`, request.sender);
+           console.log(`Request ${index} sender exists:`, !!request.sender);
+       });
+    }, [friendRequests, incomingRequests, isLoading, error])
 
-    console.log("i" , incomingRequests);
-    
+    // Add error handling
+    if (error) {
+        console.error("Query error:", error);
+        return <div>Error loading notifications: {error.message}</div>;
+    }
 
     return (
         <div className="p-4 sm:p-6 lg:p-8">
@@ -53,37 +64,52 @@ const NotificationPage = () => {
                                 </h2>
 
                                 <div className='space-y-3'>
-                                    {incomingRequests.map((request) => (
-                                        <div key={request._id} className="card bg-base-200 shadow-sm hover:shadow-md transition-shadow">
-                                            <div className="card-body p-4">
-                                                <div className="flex items-center justify-between">
-                                                    <div className="flex items-center gap-3">
-                                                        <div className="avatar w-14 h-14 rounded-full bg-base-300">
-                                                            <img src={request.sender.profilePic} alt={request.sender.fullName} />
-                                                        </div>
-                                                        <div>
-                                                            <h3 className='font-semibold'>{request.sender.fullName}</h3>
-                                                            <div className="flex flex-wrap gap-1.5 mt-1">
-                                                                <span className="badge badge-secondary badge-sm">
-                                                                    Native:{request.sender.nativeLanguage}
-                                                                </span>
-                                                                <span>
-                                                                    Looking For : {request.sender.learningLanguage}
-                                                                </span>
+                                    {incomingRequests.map((request) => {
+                                        // Add safety check for each request
+                                        if (!request || !request.sender) {
+                                            console.warn("Skipping request with null/undefined sender:", request);
+                                            return null;
+                                        }
+
+                                        return (
+                                            <div key={request._id} className="card bg-base-200 shadow-sm hover:shadow-md transition-shadow">
+                                                <div className="card-body p-4">
+                                                    <div className="flex items-center justify-between">
+                                                        <div className="flex items-center gap-3">
+                                                            <div className="avatar w-14 h-14 rounded-full bg-base-300">
+                                                                <img 
+                                                                    src={request.sender?.profilePic || '/default-avatar.png'} 
+                                                                    alt={request.sender?.fullName || 'Unknown User'} 
+                                                                    onError={(e) => {
+                                                                        console.log("Image failed to load:", request.sender?.profilePic);
+                                                                        e.target.src = '/default-avatar.png';
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                            <div>
+                                                                <h3 className='font-semibold'>{request.sender?.fullName || 'Unknown User'}</h3>
+                                                                <div className="flex flex-wrap gap-1.5 mt-1">
+                                                                    <span className="badge badge-secondary badge-sm">
+                                                                        Native: {request.sender?.nativeLanguage || 'N/A'}
+                                                                    </span>
+                                                                    <span>
+                                                                        Looking For: {request.sender?.learningLanguage || 'N/A'}
+                                                                    </span>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
 
-                                                    <button className="btn btn-primary btn-sm"
-                                                        onClick={() => acceptRequestMutation(request._id)}
-                                                        disabled={isPending}
-                                                    >
-                                                        Accept
-                                                    </button>
+                                                        <button className="btn btn-primary btn-sm"
+                                                            onClick={() => acceptRequestMutation(request._id)}
+                                                            disabled={isPending}
+                                                        >
+                                                            Accept
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        );
+                                    })}
                                 </div>
                             </section>
                         )}
@@ -100,12 +126,15 @@ const NotificationPage = () => {
                                             <div className="card-body p-4">
                                                 <div className="flex items-start gap-3">
                                                     <div className="avatar mt-1 size-10 rounded-full">
-                                                        <img src={notification.receiver.profilePic} alt={notification.receiver.fullName} />
+                                                        <img 
+                                                            src={notification.receiver?.profilePic || '/default-avatar.png'} 
+                                                            alt={notification.receiver?.fullName || 'Unknown User'} 
+                                                        />
                                                     </div>
                                                     <div className='flex-1'>
-                                                        <h3 className='font-semibold'>{notification.receiver.fullName}</h3>
+                                                        <h3 className='font-semibold'>{notification.receiver?.fullName || 'Unknown User'}</h3>
                                                         <p className='text-sm my-1'>
-                                                            {notification.receiver.fullName} accepted your Friend request
+                                                            {notification.receiver?.fullName || 'Someone'} accepted your Friend request
                                                         </p>
                                                         <p className="text-xs flex items-center opacity-70">
                                                             <ClockIcon className="h-3 w-3 mr-1" />
@@ -135,4 +164,3 @@ const NotificationPage = () => {
 };
 
 export default NotificationPage
-

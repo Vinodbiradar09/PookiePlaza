@@ -21,7 +21,10 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.0",
     "multer": "^2.0.1",
-    "path-to-regexp": "^8.2.0",
+    "path-to-regexp": "^6.2.1",
     "stream-chat": "^9.7.0"
+  },
+  "overrides": {
+    "path-to-regexp": "^6.2.1"
   }
 }

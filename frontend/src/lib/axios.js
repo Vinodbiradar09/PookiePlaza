@@ -1,7 +1,7 @@
 import axios from "axios";
 const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:4000/api" : "/api"
 const axiosInstances = axios.create({
-    baseURL :  BASE_URL,
+    baseURL :BASE_URL,
     
     withCredentials : true,
 })

@@ -2,6 +2,7 @@ import { app } from "./app.js";
 import { connectDB } from "./src/db.config/db.js";
 
 
+
 connectDB()
 .then(()=>[
     app.listen(process.env.PORT || 4000 , ()=>{

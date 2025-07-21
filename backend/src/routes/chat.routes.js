@@ -4,5 +4,5 @@ import { protectedAuth } from "../middleware/auth.middleware.js";
 
 const router = Router();
 
-router.route("/token").get(protectedAuth , getStreamTokens);
+router.route("/token").get(protectedAuth, getStreamTokens);
 export default router;

@@ -5,11 +5,9 @@ import { ApiResponse } from "../utils/ApiResponse.js"
 import { asyncHandler } from "../utils/asyncHandler.js"
 
 const getStreamTokens = asyncHandler(async (req, res) => {
-    console.log(" getStreamTokens called");
-    
+  
     const userId = req.user._id;
-    console.log(" User ID from request:", userId);
-    console.log(" User ID type:", typeof userId);
+  
     
     if (!userId) {
         throw new ApiError(404, "Unauthorized user");

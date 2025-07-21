@@ -4,11 +4,11 @@ import {sendFriendRequest , acceptFriendRequest , getMyFriends , getRecommendedU
 const router = Router();
 
 
-router.route("/sendReq/:receiverId").post(protectedAuth , sendFriendRequest);
-router.route("/acceptReq/:friendRequestId").put(protectedAuth , acceptFriendRequest);
-router.route("/getMyFrnds").get(protectedAuth , getMyFriends );
-router.route("/recomendation").get(protectedAuth , getRecommendedUsers);
-router.route("/friendreq").get(protectedAuth , getFriendRequest);
-router.route("/outgoingreqs").get(protectedAuth , getOutGoingFriendReq);
+router.route("/sendReq/:receiverId").post(protectedAuth, sendFriendRequest);
+router.route("/acceptReq/:friendRequestId").put(protectedAuth, acceptFriendRequest);
+router.route("/getMyFrnds").get(protectedAuth, getMyFriends );
+router.route("/recomendation").get(protectedAuth, getRecommendedUsers);
+router.route("/friendreq").get(protectedAuth, getFriendRequest);
+router.route("/outgoingreqs").get(protectedAuth, getOutGoingFriendReq);
 
 export default router;
